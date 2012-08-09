@@ -1,0 +1,2 @@
+module DatabaseIntegrator::MainHelper
+end

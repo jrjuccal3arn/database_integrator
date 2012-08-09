@@ -1,0 +1,32 @@
+new Wizard([
+        new WizardPage({
+            title: "Previsao do documento",
+            description: "Selecione o intervalo de linhas a serem exportadas",
+            content : "<%= spreadsheet_to_table @spreadsheet %>",
+            onload: function(wizard) {
+
+                $(wizard.content).find("tr").click(function() {
+
+                    var rangeSelection = $(wizard.content).find("tr.range-selection");
+
+                    if (!rangeSelection.size()) {
+                        $(this).addClass("range-selection");
+                    }
+                    else if (rangeSelection.size() == 1) {
+                        $(this).addClass("range-selection");
+                    }
+                    else if (rangeSelection.size() == 2) {
+
+                    }
+
+                })
+
+            }
+        }),
+        new WizardPage({
+            title: "dolor amet",
+            description: "lorem ipsum",
+            content : "foo bar",
+            onload: function() { alert("pagina2")}
+        })
+]).draw();

@@ -1,0 +1,29 @@
+<%= render 'add_database_connection_modal' %>
+
+<style type="text/css" >
+    /* usado no wizard */
+    #load-file-modal-content table tr.range-selection {
+        background-color: #05C !important;
+    }
+</style>
+<script type="text/javascript" >
+  $(function(){
+      $.get("<%= main_index_path %>");
+  })
+</script>
+<div class="row-fluid" style="margin-top: 5em;">
+  <div class="span9">
+    lorem ipsum dolor amet lorem ipsum dolor amet lorem ipsum dolor amet
+    lorem ipsum dolor amet
+    <div id="world" style="width: 800px; height: 450px;background-color: red;"></div>
+    <!--Body content-->
+  </div>
+  <div class="span3">
+    <%= form_tag(xls_file_loader_load_file_path, multipart: true, remote: true) do %>
+        <%= file_field_tag :uploaded_file, class: 'input-small' %><br/>
+        <%= submit_tag("Upload file", class: 'btn') %>
+    <% end %>
+  </div>
+</div>
+
+<%= render "database_integrator/main/load_file_modal" %>
