@@ -2,9 +2,10 @@ module DatabaseIntegrator::XlsFileLoaderHelper
 
   def spreadsheet_to_table spreadsheet
     worksheet = spreadsheet.worksheet 0
-    table = "<table class='table'>"
-    table += %(<thead><tr><th>Selecione os intervalos</th><th colspan='#{worksheet.column_count}'>Conteudo</th></tr></thead>)
-    table += "<tbody>"
+    table = "<table class='table'><thead>"
+    table += %(<tr><th>Selecione os intervalos</th><th colspan='#{worksheet.column_count}'>Tipo de dado</th></tr>)
+    table += %(<tr><th></th>#{ column_types * worksheet.column_count }</tr>)
+    table += "</thead><tbody>"
 
     0.upto(worksheet.row_count - 1) do |row|
 
@@ -24,6 +25,15 @@ module DatabaseIntegrator::XlsFileLoaderHelper
     table += "</tbody>"
     table += "</table>"
     table.html_safe
+  end
+
+  def column_types
+
+    options = [ "Selecione ...", "varchar","integer","float","boolean","date"].map do |datatype|
+    "<option value='#{datatype}' >#{datatype}</option>"
+    end.join.html_safe
+
+    "<th><select>#{options}</select></th>"
   end
 
 end

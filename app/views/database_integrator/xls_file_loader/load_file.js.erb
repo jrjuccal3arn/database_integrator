@@ -5,22 +5,22 @@ new Wizard([
             content : "<%= spreadsheet_to_table @spreadsheet %>",
             onload: function(wizard) {
 
-                $(wizard.content).find("tr").click(function() {
+                $(wizard.content).find("tbody tr").click(function() {
 
                     var rangeSelection = $(wizard.content).find("tr.range-selection");
 
-                    if (!rangeSelection.size()) {
-                        $(this).addClass("range-selection");
-                    }
-                    else if (rangeSelection.size() == 1) {
-                        $(this).addClass("range-selection");
-                    }
-                    else if (rangeSelection.size() == 2) {
-
+                    if (rangeSelection.size() < 2 || $(this).hasClass("range-selection")) {
+                        $(this).toggleClass("range-selection");
                     }
 
                 })
 
+            },
+            onBeforeChangePage: function(wizard) {
+                if ($(wizard.content).find("tr.range-selection").size() != 2) {
+                    alert("Selecione o inicio e o fim");
+                    return false;
+                }
             }
         }),
         new WizardPage({
